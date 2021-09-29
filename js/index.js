@@ -34,7 +34,14 @@ const imgs = document.querySelectorAll('img');
 imgs.forEach(i => i.addEventListener('dblclick', hide));
 function hide(event){
     event.target.classList.add('off');
+    event.stopPropagation();
 }
+
+// change mouse cursor on hover
+imgs.forEach(i => i.addEventListener('mouseover', changeCursor));
+    function changeCursor(event) {
+    event.target.style.cursor="wait";
+ }
 
 // drag & drop
 const element = document.getElementById("div");
@@ -68,3 +75,10 @@ section.ondragover="dragover_handler(event)";
     // const data = event.dataTransfer.getData("application/my-app");
     event.target.appendChild(document.getElementById(data));
    }
+
+   //greensock try??
+   gsap.to("img.intro", {duration:2, x:300, backgroundColor: "#560563"});
+
+
+
+   
