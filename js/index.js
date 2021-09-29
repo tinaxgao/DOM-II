@@ -1,9 +1,10 @@
 // Your code goes here
-//load and resize window
+//load window message
 window.addEventListener('load', (event) => {
     console.log('Welcome aboard the Fun Bus!');
   });
 
+// resize window message
 window.addEventListener('resize', (event) => {
     console.log('Changing the window size');
   });
@@ -28,10 +29,42 @@ function closeModal(event){
 confirmButton.addEventListener('click', closeModal);
 cancelButton.addEventListener('click', closeModal);
 
+// makes images disappear when dblclicked
+const imgs = document.querySelectorAll('img');
+imgs.forEach(i => i.addEventListener('dblclick', hide));
+function hide(event){
+    event.target.classList.add('off');
+}
 
-// const text = document.querySelectorAll('p');
-// text.forEach(i => i.addEventListener('select', alert));
-// function alert(event){
-//     console.log('copy this text');
-// }
+// drag & drop
+const element = document.getElementById("div");
+const section = document.getElementById("section");
+element.draggable="true";
+section.ondrop="drop_handler(event)";
+section.ondragover="dragover_handler(event)";
 
+  window.addEventListener('DOMContentLoaded', () => {
+    // Add the ondragstart event listener
+    element.addEventListener("dragstart", dragstart_handler);
+  });
+
+  function dragstart_handler(event) {
+    // Add the target element's id to the data transfer object
+    event.dataTransfer.setData("text/plain", event.target.id);
+    event.dataTransfer.dropEffect = "copy";
+    // event.dataTransfer.setData("application/my-app", event.target.id);
+    // event.dataTransfer.effectAllowed = "move";
+  }
+
+  function dragover_handler(event) {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "move";
+   }
+
+   function drop_handler(event) {
+    event.preventDefault();
+    // Get the id of the target and add the moved element to the target's DOM
+    const data = event.dataTransfer.getData("text/plain");
+    // const data = event.dataTransfer.getData("application/my-app");
+    event.target.appendChild(document.getElementById(data));
+   }
